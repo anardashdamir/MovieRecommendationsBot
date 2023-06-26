@@ -28,17 +28,23 @@ async def start_(message: types.Message):
 # Recommend
 @dp.message_handler(commands=['recommend'])
 async def recommend_(message: types.Message):
-    text = predicts.nlp(message.get_args())
+    text = message.get_args()
+    if text == '':
+        await message.reply(messages.empty_recommend)
 
-    similar_titles = predicts.select_title(text)
-    keyboard = types.InlineKeyboardMarkup()
+    else:
+        text = predicts.nlp(text)
 
-    for sm_title in similar_titles:
-        title = sm_title[0]
-        button_texts.append(str(title))
-        keyboard.add(types.InlineKeyboardButton(text=str(title), callback_data=str(title)))
 
-    await message.reply('Which one did you mean? ', reply_markup=keyboard)
+        similar_titles = predicts.select_title(text)
+        keyboard = types.InlineKeyboardMarkup()
+
+        for sm_title in similar_titles:
+            title = sm_title[0]
+            button_texts.append(str(title))
+            keyboard.add(types.InlineKeyboardButton(text=str(title), callback_data=str(title)))
+
+        await message.reply('Which one did you mean? ', reply_markup=keyboard)
 
 
 @dp.callback_query_handler(text=button_texts)
