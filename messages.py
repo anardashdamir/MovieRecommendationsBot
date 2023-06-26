@@ -4,4 +4,6 @@ Just tell me your preferences, and I'll serve you personalized recommendations t
 Whether you're in the mood for action-packed adventures, heartwarming romance, hilarious comedies, or any other genre, I've got you covered! 🌟
 Ready to get started? '''
 
+empty_recommend = 'Please type a movie name after /recommend. For example: <b> /recommend John Wick 4 </b>'
+
 
